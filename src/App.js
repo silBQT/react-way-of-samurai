@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile/Profile';
-import Dialogs from './pages/Dialogs/Dialogs';
+import DialogsContainer from './pages/Dialogs/DialogsContainer';
 import Notfoundpage from './pages/Notfoundpage/Notfoundpage';
 import { Layout } from './components/Layout';
 
@@ -9,8 +9,8 @@ function App(props) {
     <>
       <Routes>
         <Route path="/" element={<Layout state={props.state.layout} />}>
-          <Route index element={<Profile state={props.state.profilePage} dispatch={props.dispatch} />} />
-          <Route path="dialogs" element={<Dialogs state={props.state.dialogsPage} dispatch={props.dispatch} />} />
+          <Route index element={<Profile store={props.store} />} />
+          <Route path="dialogs" element={<DialogsContainer store={props.store} />} />
           <Route path="*" element={<Notfoundpage />} />
         </Route>
       </Routes>
