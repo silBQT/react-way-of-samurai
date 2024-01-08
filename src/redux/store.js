@@ -83,4 +83,5 @@ export const updateNewPostBodyActionCreator = (newPostBody) => ({ type: UPDATE_N
 export const sendMessageActionCreator = () => ({type: SEND_MESSAGE});
 export const updateNewMessageBodyActionCreator = (newMessageBody) => ({type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody});
 
+window.state = store.getState();
 export default store;

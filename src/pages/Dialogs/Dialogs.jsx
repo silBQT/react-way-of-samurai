@@ -8,10 +8,8 @@ import { sendMessageActionCreator, updateNewMessageBodyActionCreator } from '../
 
 const Dialogs = (props) => {
 
-  const newMessageElement = React.createRef();
-
-  const onChangeNewMessageBody = () => {
-    const body = newMessageElement.current.value;
+  const onChangeNewMessageBody = (e) => {
+    const body = e.target.value;
     props.dispatch(updateNewMessageBodyActionCreator(body));
   };
   const onClickSendMessage = () => {
@@ -30,7 +28,7 @@ const Dialogs = (props) => {
         </div>
         <div className={styles.dialogs__messages}>
           {messageElements}
-          <textarea onChange={onChangeNewMessageBody} ref={newMessageElement} value={props.state.newMessageBody} name="message_desc" placeholder='your message...'></textarea>
+          <textarea onChange={onChangeNewMessageBody} value={props.state.newMessageBody} name="message_desc" placeholder='your message...'></textarea>
           <button onClick={onClickSendMessage}>Send message</button>
         </div>
       </div>
