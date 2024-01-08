@@ -1,0 +1,29 @@
+.post {
+    margin-top: 25px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &__body {
+        display: flex;
+        align-items: flex-start;
+
+        img {
+            width: 75px;
+            height: 75px;
+            border-radius: 100%;
+            margin-right: 25px;
+        }
+    }
+
+    &__info {
+        margin-top: 10px;
+        display: flex;
+        justify-content: right;
+        
+        button {
+            margin: 0 0 0 10px;
+        }
+    }
+}

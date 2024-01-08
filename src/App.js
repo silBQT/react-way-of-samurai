@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Profile from './pages/Profile/Profile';
+import Dialogs from './pages/Dialogs/Dialogs';
+import Notfoundpage from './pages/Notfoundpage/Notfoundpage';
+import { Layout } from './components/Layout';
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout state={props.state.layout} />}>
+          <Route index element={<Profile state={props.state.profilePage} dispatch={props.dispatch} />} />
+          <Route path="dialogs" element={<Dialogs state={props.state.dialogsPage} dispatch={props.dispatch} />} />
+          <Route path="*" element={<Notfoundpage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
