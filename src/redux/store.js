@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_BODY = 'UPDATE-NEW-POST-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+import { dialogsReducer } from "./dialogs-reducer";
+import { profileReducer } from "./profile-reducer";
+import { sidebarReducer } from "./sidebar-reducer";
 
 let store = {
     _callSubscriber() {
@@ -48,40 +47,13 @@ let store = {
         return this._state;
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 1,
-                body: this._state.profilePage.newPostBody,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostBody = '';
-            this._callSubscriber(store.getState());
-        }
-        else if (action.type === UPDATE_NEW_POST_BODY) {
-            this._state.profilePage.newPostBody = action.newPostBody;
-            this._callSubscriber(store.getState());
-        }
-        else if (action.type === SEND_MESSAGE) {
-            let newMessage = {
-                id: 1,
-                message: this._state.dialogsPage.newMessageBody
-            }
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessageBody = '';
-            this._callSubscriber(store.getState());
-        }
-        else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.newMessageBody;
-            this._callSubscriber(store.getState());
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+        this._callSubscriber(this.getState());
     }
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-export const updateNewPostBodyActionCreator = (newPostBody) => ({ type: UPDATE_NEW_POST_BODY, newPostBody: newPostBody });
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE});
-export const updateNewMessageBodyActionCreator = (newMessageBody) => ({type: UPDATE_NEW_MESSAGE_BODY, newMessageBody: newMessageBody});
 
 window.state = store.getState();
 export default store;
