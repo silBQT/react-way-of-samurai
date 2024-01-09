@@ -5,6 +5,8 @@ import Post from './Post/Post';
 
 const Posts = (props) => {
 
+  debugger;
+
   let postElements = props.posts.map( p => <Post id={p.id} body={p.body} likesCount={p.likesCount} /> )
   let newPostBody = props.newPostBody;
 

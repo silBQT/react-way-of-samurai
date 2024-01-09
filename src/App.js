@@ -8,9 +8,9 @@ function App(props) {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout state={props.state.layout} />}>
-          <Route index element={<Profile store={props.store} />} />
-          <Route path="dialogs" element={<DialogsContainer store={props.store} />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Profile />} />
+          <Route path="dialogs" element={<DialogsContainer />} />
           <Route path="*" element={<Notfoundpage />} />
         </Route>
       </Routes>
