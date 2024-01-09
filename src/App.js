@@ -3,6 +3,7 @@ import Profile from './pages/Profile/Profile';
 import DialogsContainer from './pages/Dialogs/DialogsContainer';
 import Notfoundpage from './pages/Notfoundpage/Notfoundpage';
 import { Layout } from './components/Layout';
+import UsersContainer from './pages/Users/UsersContainer';
 
 function App(props) {
   return (
@@ -11,6 +12,7 @@ function App(props) {
         <Route path="/" element={<Layout />}>
           <Route index element={<Profile />} />
           <Route path="dialogs" element={<DialogsContainer />} />
+          <Route path="users" element={<UsersContainer />} />
           <Route path="*" element={<Notfoundpage />} />
         </Route>
       </Routes>

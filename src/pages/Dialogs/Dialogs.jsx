@@ -16,8 +16,8 @@ const Dialogs = (props) => {
   }
 
   let newMessageBody = props.dialogsPage.newMessageBody,
-  dialogElements = props.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name} profPic={d.profPic} />),
-  messageElements = props.dialogsPage.messages.map(m => <Message id={m.id} message={m.message} />);
+  dialogElements = props.dialogsPage.dialogs.map(d => <Dialog key={d.id} id={d.id} name={d.name} profPic={d.profPic} />),
+  messageElements = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message} />);
 
   return (
     <div className={styles.dialogs}>

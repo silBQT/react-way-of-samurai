@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {
   return {
-    posts: state.posts,
-    newPostBody: state.newPostBody
+    posts: state.profilePage.posts,
+    newPostBody: state.profilePage.newPostBody
   }
 };
 let mapDispatchToProps = (dispatch) => {
