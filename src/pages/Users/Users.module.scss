@@ -46,4 +46,12 @@
             height: 30px;
         }
     }
+
+    &__page {
+        font-size: 18px;
+        cursor: pointer;
+        &_active {
+            color: blue;
+        }
+    }
 }
