@@ -6,9 +6,10 @@ import styles from './Profile.module.scss';
 import PostsContainer from './Posts/PostsContainer';
 
 const Profile = (props) => {
+  debugger;
   return (
     <div className={styles.profile}>
-        <ProfileInfo />
+        <ProfileInfo profile={props.profile} />
         <PostsContainer />
     </div>
   )

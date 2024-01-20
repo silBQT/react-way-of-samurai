@@ -1,5 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_BODY = 'UPDATE-NEW-POST-BODY';
+const ADD_POST = 'ADD-POST',
+UPDATE_NEW_POST_BODY = 'UPDATE-NEW-POST-BODY',
+SET_USER_PROFILE = 'SET-USER-PROFILE';
 
 let initialState = {
     posts: [
@@ -9,7 +10,8 @@ let initialState = {
         { id: 4, body: 'MEOWWWWWW', likesCount: 99999 },
         { id: 5, body: 'реакт редакс ты знать будешь круто', likesCount: 1429912 },
     ],
-    newPostBody: ''
+    newPostBody: '',
+    profile: null
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -25,10 +27,14 @@ export const profileReducer = (state = initialState, action) => {
         case UPDATE_NEW_POST_BODY: {
             return {...state, newPostBody: action.newPostBody};
         }
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
+        }
         default:
             return state;
     }
 };
 
-export const addPost = () => ({ type: ADD_POST });
-export const updateNewPostBody = (newPostBody) => ({ type: UPDATE_NEW_POST_BODY, newPostBody });
+export const addPost = () => ({ type: ADD_POST }),
+updateNewPostBody = (newPostBody) => ({ type: UPDATE_NEW_POST_BODY, newPostBody }),
+setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile})
