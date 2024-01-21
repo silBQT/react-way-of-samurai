@@ -1,14 +1,14 @@
 import React from 'react';
-import Header from './../pages/Header/Header';
 import Nav from './../pages/Nav/Nav';
 import { Outlet } from 'react-router-dom';
 
 import styles from './Layout.module.scss';
+import HeaderContainer from '../pages/Header/HeaderContainer';
 
 const Layout = () => {
   return (
     <div className={styles.layout}>
-      <Header />
+      <HeaderContainer />
       <Nav />
       <main className={styles.main}>
         <Outlet />

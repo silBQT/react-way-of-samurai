@@ -6,7 +6,6 @@ import styles from './Profile.module.scss';
 import PostsContainer from './Posts/PostsContainer';
 
 const Profile = (props) => {
-  debugger;
   return (
     <div className={styles.profile}>
         <ProfileInfo profile={props.profile} />
@@ -14,5 +13,4 @@ const Profile = (props) => {
     </div>
   )
 }
-
 export default Profile
