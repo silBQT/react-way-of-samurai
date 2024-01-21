@@ -14,10 +14,13 @@ export const authReducer = (state = initialState, action) => {
         case SET_AUTH_USER_DATA: {
             return {...state, ...action.data, isAuth: true};
         }
+        case SET_PROFILE_DATA: {
+            return {...state, profile: action.profile}
+        }
         default:
             return state;
     }
 };
 
 export const setAuthUserData = (userId, email, login) => ({ type: SET_AUTH_USER_DATA, data: { userId, email, login } });
-export const setProfileData = (profile) => ({});
+export const setProfileData = (profile) => ({ type: SET_PROFILE_DATA, profile});
