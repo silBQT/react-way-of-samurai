@@ -3,14 +3,16 @@ UNFOLLOW = 'UNFOLLOW',
 SET_USERS = 'SET-USERS',
 SET_CURRENT_PAGE = 'SET-CURRENT-PAGE',
 SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT',
-SET_IS_FETCHING = 'SET-IS-FETCHING'
+SET_IS_FETCHING = 'SET-IS-FETCHING',
+SET_USER_ON_FOLLOWING = 'SET-USER-ON-FOLLOWING'
 
 let initialState = {
     users: [],
     currentPage: 1,
     totalUsersCount: 15,
     pageSize: 5,
-    isFetching: true
+    isFetching: true,
+    usersOnFollowing: []
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -61,6 +63,14 @@ export const usersReducer = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
         }
+        case SET_USER_ON_FOLLOWING: {
+            return {
+                ...state,
+                usersOnFollowing: action.isFollowing 
+                ? [...state.usersOnFollowing, action.userId]
+                : state.usersOnFollowing.filter(u => u !== action.userId)
+            }
+        }
         default:
             return state;
     }
@@ -71,4 +81,5 @@ unfollow = (userId) => ({ type: UNFOLLOW, userId }),
 setUsers = (users) => ({ type: SET_USERS, users}),
 setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage}),
 setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount}),
-setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching})
+setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching}),
+setUserOnFollowing = (isFollowing, userId) => ({ type: SET_USER_ON_FOLLOWING, isFollowing, userId })

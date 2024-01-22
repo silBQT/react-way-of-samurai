@@ -23,15 +23,23 @@ const Users = (props) => {
                                 <NavLink to={`/profile/${u.id}`}>
                                     <img src={u.photos.small != null ? u.photos.small : userImage} alt="profPicUrl" />
                                 </NavLink>
-                                {u.followed ? <button onClick={() => axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, { withCredentials: true, headers: {"API-KEY": "f3c011b4-54bd-4d5f-a293-6e99fc0327d9"} }).then(response => {
-                                    if (response.data.resultCode === 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                })}>Unfollow</button> : <button onClick={() => axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, { withCredentials: true, headers: {"API-KEY": "f3c011b4-54bd-4d5f-a293-6e99fc0327d9"} }).then(response => {
-                                    if (response.data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                })}>Follow</button>}
+                                {u.followed ? <button disabled={props.usersOnFollowing.some(id => id === u.id)} onClick={() => {
+                                    props.setUserOnFollowing(true, u.id)
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, { withCredentials: true, headers: { "API-KEY": "f3c011b4-54bd-4d5f-a293-6e99fc0327d9" } }).then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unfollow(u.id)
+                                        }
+                                        props.setUserOnFollowing(false, u.id)
+                                    })
+                                }}>Unfollow</button> : <button disabled={props.usersOnFollowing.some(id => id === u.id)} onClick={() => {
+                                    props.setUserOnFollowing(true, u.id)
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, { withCredentials: true, headers: { "API-KEY": "f3c011b4-54bd-4d5f-a293-6e99fc0327d9" } }).then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(u.id)
+                                        }
+                                        props.setUserOnFollowing(false, u.id)
+                                    })
+                                }}>Follow</button>}
                             </div>
                             <div className={styles.user__content}>
                                 <span className={styles.user__name}>{u.name}</span>
