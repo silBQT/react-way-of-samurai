@@ -15,9 +15,9 @@ const Header = (props) => {
       return <Preloader />
     }
     if (!props.profile.photos.large) {
-      return <div>{props.login}<img src={userImage} /></div>
+      return <div>{props.login}<img src={userImage} alt="userProfPic"/></div>
     }
-    return <div>{props.login}<img src={props.profile.photos.large}/></div>
+    return <div>{props.login}<img src={props.profile.photos.large} alt="userProfPic"/></div>
   }
 
   return (
