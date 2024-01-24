@@ -4,6 +4,7 @@ import { sendMessage, updateNewMessageBody } from '../../redux/dialogs-reducer';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { reduxForm } from 'redux-form';
 
 
 let mapStateToProps = (state) => {
@@ -17,5 +18,5 @@ export default compose(
     updateNewMessageBody,
     sendMessage
   }),
-  withAuthRedirect
+  // withAuthRedirect
 )(Dialogs)
