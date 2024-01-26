@@ -86,11 +86,11 @@ export const followSuccess = (userId) => ({ type: FOLLOW, userId }),
     setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching }),
     setUserOnFollowing = (isFollowing, userId) => ({ type: SET_USER_ON_FOLLOWING, isFollowing, userId })
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetching(true));
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setCurrentPage(currentPage));
+        usersAPI.requestUsers(page, pageSize).then(data => {
+            dispatch(setCurrentPage(page));
             dispatch(setIsFetching(false))
             dispatch(setUsers(data.items));
             dispatch(setTotalUsersCount(data.totalCount));
