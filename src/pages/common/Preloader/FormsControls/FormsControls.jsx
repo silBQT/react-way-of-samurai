@@ -1,7 +1,6 @@
 import styles from './FormsControls.module.scss'
 
 const Element = (Element) => ({input, meta, ...props}) => {
-    debugger;
     const hasError = meta.error && meta.touched;
     
     return (

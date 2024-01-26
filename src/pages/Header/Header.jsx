@@ -15,9 +15,21 @@ const Header = (props) => {
       return <Preloader />
     }
     if (!props.profile.photos.large) {
-      return <div>{props.login}<img src={userImage} alt="userProfPic"/></div>
+      return (
+        <div>
+          {props.login}
+          <img src={userImage} alt="userProfPic" />
+          <button onClick={props.logout}>Logout</button>
+        </div>
+      )
     }
-    return <div>{props.login}<img src={props.profile.photos.large} alt="userProfPic"/></div>
+    return (
+      <div>
+        {props.login}
+        <img src={props.profile.photos.large} alt="userProfPic" />
+        <button onClick={props.logout}>Logout</button>
+      </div>
+    )
   }
 
   return (
