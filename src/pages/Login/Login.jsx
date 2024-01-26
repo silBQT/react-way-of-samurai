@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Login.module.scss'
-import LoginReduxForm from './LoginReduxForm'
+import LoginFormRedux from './LoginForm/LoginFormRedux'
 
 const Login = () => {
   const onSubmit = (formData) => {
@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <div>
       <h2>login</h2>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginFormRedux onSubmit={onSubmit} />
     </div>
   )
 }

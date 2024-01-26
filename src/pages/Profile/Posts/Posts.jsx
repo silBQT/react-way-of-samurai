@@ -2,28 +2,23 @@ import React from 'react';
 
 import styles from './Posts.module.scss';
 import Post from './Post/Post';
+import AddPostFormRedux from './AddPostForm/AddPostFormRedux';
 
 const Posts = (props) => {
 
-  let postElements = props.posts.map( p => <Post key={p.id} id={p.id} body={p.body} likesCount={p.likesCount} /> )
-  let newPostBody = props.newPostBody;
+  let postElements = props.posts.map(p => <Post key={p.id} id={p.id} body={p.body} likesCount={p.likesCount} />)
 
-  let onChangeNewPostBody = (e) => {
-    const body = e.target.value;
-    props.updateNewPostBody(body);
-  };
-  let onClickAddPost = () => {
-    props.addPost();
-  };
+  const addNewPost = (formData) => {
+    props.addPost(formData.newPostBody);
+  }
 
   return (
     <div className={styles.posts}>
-        <h2>My posts</h2>
-        <textarea onChange={onChangeNewPostBody} name="post_desc" placeholder='your news...' value={newPostBody}></textarea>
-        <button onClick={onClickAddPost}>Add post</button>
-        <div className={styles.posts__wrapper}>
-          {postElements}
-        </div>
+      <h2>My posts</h2>
+      <AddPostFormRedux onSubmit={addNewPost}/>
+      <div className={styles.posts__wrapper}>
+        {postElements}
+      </div>
     </div>
   )
 }
