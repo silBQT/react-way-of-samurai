@@ -1,6 +1,7 @@
 {
-  "name": "first-social-network-app",
+  "name": "social-network-app",
   "version": "0.1.0",
+  "homepage": "https://silBQT.github.io/social-network-app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -26,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +51,7 @@
   },
   "devDependencies": {
     "axios": "^1.6.5",
+    "gh-pages": "^6.1.1",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
     "redux": "^5.0.1",
