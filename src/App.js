@@ -1,16 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
-import DialogsContainer from './pages/Dialogs/DialogsContainer';
-import Notfoundpage from './pages/Notfoundpage/Notfoundpage';
 import { Layout } from './components/Layout';
 import UsersContainer from './pages/Users/UsersContainer';
-import ProfileContainer from './pages/Profile/ProfileContainer';
-import LoginContainer from './pages/Login/LoginContainer';
-import React from 'react';
+import Notfoundpage from './pages/Notfoundpage/Notfoundpage'
+import React, { Suspense } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { inizializeApp } from './redux/app-reducer'
 import withRouter from './withRouter';
 import Preloader from './pages/common/Preloader/Preloader';
+const DialogsContainer = React.lazy(() => import('./pages/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./pages/Profile/ProfileContainer'));
+const LoginContainer = React.lazy(() => import('./pages/Login/LoginContainer'));
 
 class App extends React.Component {
 
@@ -21,7 +21,7 @@ class App extends React.Component {
   render() {
     if (!this.props.inizializated) return <Preloader />
     return (
-      <>
+      <Suspense fallback={<div><Preloader /></div>}>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/profile/:userId?" element={<ProfileContainer />} />
@@ -31,7 +31,7 @@ class App extends React.Component {
             <Route path="*" element={<Notfoundpage />} />
           </Route>
         </Routes>
-      </>
+      </Suspense>
     );
   }
 }
