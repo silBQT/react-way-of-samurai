@@ -14,7 +14,7 @@ const Users = (props) => {
                 }
             </div>
             <div className={styles.users__pages}>
-                <Paginator totalUsersCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage} onClickChangeCurrentPage={props.onClickChangeCurrentPage}/>
+                <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage} onClickChangeCurrentPage={props.onClickChangeCurrentPage}/>
             </div>
         </div>
     )
