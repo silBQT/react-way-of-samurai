@@ -82,17 +82,17 @@ export const followSuccess = (userId) => ({ type: FOLLOW, userId }),
 export const requestUsers = (page, pageSize) => async (dispatch) => {
     dispatch(setIsFetching(true));
 
-    let promise = await usersAPI.requestUsers(page, pageSize)
+    let response = await usersAPI.requestUsers(page, pageSize)
     dispatch(setCurrentPage(page));
     dispatch(setIsFetching(false))
-    dispatch(setUsers(promise.items));
-    dispatch(setTotalUsersCount(promise.totalCount));
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUsersCount(response.totalCount));
 }
 
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
     dispatch(setUserOnFollowing(true, userId))
-    let promise = await apiMethod(userId)
-    if (promise.resultCode === 0) {
+    let response = await apiMethod(userId)
+    if (response.resultCode === 0) {
         dispatch(actionCreator(userId))
     }
     dispatch(setUserOnFollowing(false, userId))
