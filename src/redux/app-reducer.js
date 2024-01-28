@@ -7,9 +7,9 @@ let initialState = {
 }
 
 export const appReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case INIZIALIZATED_SUCCESS: {
-            return {...state, inizializated: true};
+            return { ...state, inizializated: true };
         }
         default:
             return state;

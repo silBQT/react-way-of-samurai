@@ -23,13 +23,13 @@ export const usersReducer = (state = initialState, action) => {
         case FOLLOW: {
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", { followed: true } )
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: true })
             };
         }
         case UNFOLLOW: {
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", { followed: false } )
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: false })
             };
         }
         case SET_USERS: {
