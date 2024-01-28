@@ -1,12 +1,13 @@
 import { usersAPI } from '../api/api'
+import { updateObjectInArray } from '../utils/object-helpers';
 
-const FOLLOW = 'FOLLOW',
-    UNFOLLOW = 'UNFOLLOW',
-    SET_USERS = 'SET-USERS',
-    SET_CURRENT_PAGE = 'SET-CURRENT-PAGE',
-    SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT',
-    SET_IS_FETCHING = 'SET-IS-FETCHING',
-    SET_USER_ON_FOLLOWING = 'SET-USER-ON-FOLLOWING'
+const FOLLOW = 'users/FOLLOW',
+    UNFOLLOW = 'users/UNFOLLOW',
+    SET_USERS = 'users/SET_USERS',
+    SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE',
+    SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT',
+    SET_IS_FETCHING = 'users/SET_IS_FETCHING',
+    SET_USER_ON_FOLLOWING = 'users/SET_USER_ON_FOLLOWING'
 
 let initialState = {
     users: [],
@@ -22,23 +23,13 @@ export const usersReducer = (state = initialState, action) => {
         case FOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return { ...u, followed: true };
-                    };
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: true } )
             };
         }
         case UNFOLLOW: {
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return { ...u, followed: false };
-                    };
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", { followed: false } )
             };
         }
         case SET_USERS: {
@@ -78,6 +69,7 @@ export const usersReducer = (state = initialState, action) => {
     }
 };
 
+// action creators
 export const followSuccess = (userId) => ({ type: FOLLOW, userId }),
     unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId }),
     setUsers = (users) => ({ type: SET_USERS, users }),
@@ -86,38 +78,29 @@ export const followSuccess = (userId) => ({ type: FOLLOW, userId }),
     setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching }),
     setUserOnFollowing = (isFollowing, userId) => ({ type: SET_USER_ON_FOLLOWING, isFollowing, userId })
 
-export const requestUsers = (page, pageSize) => {
-    return (dispatch) => {
-        dispatch(setIsFetching(true));
-        usersAPI.requestUsers(page, pageSize).then(data => {
-            dispatch(setCurrentPage(page));
-            dispatch(setIsFetching(false))
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
-        });
-    }
+// thunks
+export const requestUsers = (page, pageSize) => async (dispatch) => {
+    dispatch(setIsFetching(true));
+
+    let promise = await usersAPI.requestUsers(page, pageSize)
+    dispatch(setCurrentPage(page));
+    dispatch(setIsFetching(false))
+    dispatch(setUsers(promise.items));
+    dispatch(setTotalUsersCount(promise.totalCount));
 }
 
-export const follow = (userId) => {
-    return (dispatch) => {
-        dispatch(setUserOnFollowing(true, userId))
-        usersAPI.follow(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(followSuccess(userId))
-            }
-            dispatch(setUserOnFollowing(false, userId))
-        })
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+    dispatch(setUserOnFollowing(true, userId))
+    let promise = await apiMethod(userId)
+    if (promise.resultCode === 0) {
+        dispatch(actionCreator(userId))
     }
+    dispatch(setUserOnFollowing(false, userId))
 }
 
-export const unfollow = (userId) => {
-    return (dispatch) => {
-        dispatch(setUserOnFollowing(true, userId))
-        usersAPI.unfollow(userId).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollowSuccess(userId))
-            }
-            dispatch(setUserOnFollowing(false, userId))
-        })
-    }
+export const follow = (userId) => async (dispatch) => {
+    followUnfollowFlow(dispatch, userId, usersAPI.follow, followSuccess)
+}
+export const unfollow = (userId) => async (dispatch) => {
+    followUnfollowFlow(dispatch, userId, usersAPI.unfollow, unfollowSuccess)
 }

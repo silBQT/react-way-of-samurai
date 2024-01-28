@@ -1,6 +1,6 @@
-const SEND_MESSAGE = 'dialogs/SEND_MESSAGE';
+import { dialogsReducer, sendMessage } from "./dialogs-reducer";
 
-let initialState = {
+const state = {
     dialogs: [
         { id: 1, name: 'Adilet', profPic: 'https://coolsen.ru/wp-content/uploads/2021/11/89-20211129_204333.jpg'},
         { id: 2, name: 'Artem', profPic: 'https://gorodprizrak.com/wp-content/uploads/2023/06/34aa4d61b64a0520d7b7077d768d90b0.jpg'},
@@ -16,22 +16,14 @@ let initialState = {
     ]
 }
 
-export const dialogsReducer = (state = initialState, action) => {
+test("after sending message length of messages must be incremented", () => {
+    // 1. test data
+    const action = sendMessage('hey');
 
-    switch(action.type) {
-        case SEND_MESSAGE: {
-            let newMessage = {
-                id: state.messages.length + 1,
-                message: action.newMessageBody
-            }
-            return { ...state, messages: [...state.messages, newMessage], newMessageBody: '' };
-        }
-        default:
-            return state;
-    }
-};
-
-// action creators
-export const sendMessage = (newMessageBody) => ({type: SEND_MESSAGE, newMessageBody});
-
-// thunks
+    // 2. action
+    let newState = dialogsReducer(state, action);
+    
+    // 3. expectation
+    expect(newState.messages.length).toBe(5);
+    
+});

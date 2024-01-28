@@ -5,7 +5,8 @@ import { Navigate } from 'react-router-dom'
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-    props.login(formData.login, formData.password, formData.rememberMe);
+    let {login, password, rememberMe} = formData
+    props.login(login, password, rememberMe);
   }
   
   if (props.isAuth) {

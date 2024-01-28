@@ -8,16 +8,16 @@ import { getCurrentPage, getIsFetching, getPageSize, getTotalUsersCount, getUser
 class UsersContainer extends React.Component {
 
   componentDidMount() {
-    this.props.requestUsers(this.props.currentPage, this.props.pageSize)
+    let {currentPage, pageSize} = this.props
+    this.props.requestUsers(currentPage, pageSize)
   }
 
   onClickChangeCurrentPage = (currentPage) => {
-    this.props.requestUsers(currentPage, this.props.pageSize)
+    let {pageSize} = this.props;
+    this.props.requestUsers(currentPage, pageSize)
   };
 
   render() {
-    console.log("USERS");
-
     return (
       <>
       {this.props.isFetching ? <Preloader /> : null}
@@ -36,7 +36,6 @@ class UsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-  console.log('mapStateToProps USERS')
   return {
     users: getUsers(state),
     currentPage: getCurrentPage(state),
