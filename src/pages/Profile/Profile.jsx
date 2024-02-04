@@ -1,17 +1,16 @@
 import React from 'react';
 
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import Posts from './Posts/Posts';
 
 import styles from './Profile.module.scss';
+import PostsContainer from './Posts/PostsContainer';
 
 const Profile = (props) => {
   return (
     <div className={styles.profile}>
-        <ProfileInfo />
-        <Posts posts={props.state.posts} newPostBody={props.state.newPostBody} dispatch={props.dispatch} />
+      <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus} saveUserImage={props.saveUserImage} isOwner={props.isOwner} />
+      <PostsContainer />
     </div>
   )
 }
-
 export default Profile

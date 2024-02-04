@@ -1,0 +1,7 @@
+.page {
+    font-size: 18px;
+    cursor: pointer;
+    &_active {
+        color: blue;
+    }
+}

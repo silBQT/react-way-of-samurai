@@ -4,19 +4,29 @@
         height: 150px;
         object-fit: cover;
     }
+
     &__wrapper {
         margin-top: 50px;
         display: flex;
     }
+
     &__pic {
-        margin-right: 20px;
-        width: 150px;
-        height: 150px;
-        border-radius: 100%;
+        display: flex;
+        flex-direction: column;
+
+        img {
+            margin-right: 20px;
+            margin-bottom: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+        }
     }
+
     &__content {
         font-size: 18px;
     }
+
     &__name {
         display: block;
         margin-bottom: 20px;

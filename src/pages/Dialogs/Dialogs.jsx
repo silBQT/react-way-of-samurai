@@ -4,22 +4,17 @@ import Dialog from './Dialog/Dialog';
 import Message from './Message/Message';
 
 import styles from './Dialogs.module.scss'
-import { sendMessageActionCreator, updateNewMessageBodyActionCreator } from '../../redux/store';
+import AddMessageFormRedux from './AddMessageForm/AddMessageFormRedux';
 
 const Dialogs = (props) => {
 
-  const newMessageElement = React.createRef();
-
-  const onChangeNewMessageBody = () => {
-    const body = newMessageElement.current.value;
-    props.dispatch(updateNewMessageBodyActionCreator(body));
-  };
-  const onClickSendMessage = () => {
-    props.dispatch(sendMessageActionCreator());
+  const addNewMessage = (formData) => {
+    props.sendMessage(formData.newMessageBody);
   }
 
-  const dialogElements = props.state.dialogs.map(d => <Dialog id={d.id} name={d.name} profPic={d.profPic} />)
-  const messageElements = props.state.messages.map(m => <Message id={m.id} message={m.message} />);
+  let dialogElements = props.dialogsPage.dialogs.map(d => <Dialog key={d.id} id={d.id} name={d.name} profPic={d.profPic} />),
+      messageElements = props.dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message} />);
+
 
   return (
     <div className={styles.dialogs}>
@@ -30,8 +25,7 @@ const Dialogs = (props) => {
         </div>
         <div className={styles.dialogs__messages}>
           {messageElements}
-          <textarea onChange={onChangeNewMessageBody} ref={newMessageElement} value={props.state.newMessageBody} name="message_desc" placeholder='your message...'></textarea>
-          <button onClick={onClickSendMessage}>Send message</button>
+          <AddMessageFormRedux onSubmit={addNewMessage}/>
         </div>
       </div>
     </div>
