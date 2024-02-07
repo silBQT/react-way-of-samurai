@@ -1,7 +1,7 @@
 {
-  "name": "social-network-app",
+  "name": "react-way-of-samurai",
   "version": "0.1.0",
-  "homepage": "https://silBQT.github.io/social-network-app",
+  "homepage": "https://silBQT.github.io/react-way-of-samurai",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
